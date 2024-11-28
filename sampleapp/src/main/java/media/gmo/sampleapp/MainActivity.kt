@@ -7,7 +7,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -17,12 +20,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import media.gmo.sampleapp.ui.theme.SDKSampleTheme
 import media.gmo.sdksample.PlayBox
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: GreetingViewModel by viewModels()
+    private val viewModel: SampleViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +58,17 @@ class MainActivity : ComponentActivity() {
         setContent {
             SDKSampleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(viewModel)
+                    Column {
+                        Spacer(modifier = Modifier.padding(32.dp))
+                        SampleScreen(
+                            modifier = Modifier.padding(innerPadding),
+                            viewModel = viewModel,
+                            onClick = {
+                                val playBoxCatalogIntent = PlayBox.getCatalogIntent(this@MainActivity)
+                                startActivity(playBoxCatalogIntent);
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -62,12 +76,17 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(viewModel: GreetingViewModel) {
+fun SampleScreen(
+    modifier: Modifier = Modifier,
+    viewModel: SampleViewModel,
+    onClick: () -> Unit = {}
+) {
     val buttonState by viewModel.buttonState
 
     Button(
         onClick = {
             Log.d("TEST", "onClick")
+            onClick()
         },
         enabled = buttonState
     ) {
@@ -75,7 +94,7 @@ fun Greeting(viewModel: GreetingViewModel) {
     }
 }
 
-class GreetingViewModel: ViewModel() {
+class SampleViewModel: ViewModel() {
     private val _buttonState = mutableStateOf(false)
     val buttonState: State<Boolean> = _buttonState
 
@@ -86,8 +105,8 @@ class GreetingViewModel: ViewModel() {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun SampleScreenPreview() {
     SDKSampleTheme {
-        Greeting(viewModel = GreetingViewModel())
+        SampleScreen(viewModel = SampleViewModel())
     }
 }

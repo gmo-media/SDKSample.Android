@@ -1,5 +1,9 @@
 package media.gmo.sdksample
 
+import android.app.Application
+import android.content.Context
+import android.content.Intent
+
 class PlayBox {
     companion object {
         fun init(key: String, options: Options?, listener: PlayBoxInitializationListener) {
@@ -8,6 +12,10 @@ class PlayBox {
                 return
             }
             listener.onSuccess()
+        }
+
+        fun getCatalogIntent(context: Context): Intent {
+            return Intent(context, CatalogActivity::class.java)
         }
     }
 
