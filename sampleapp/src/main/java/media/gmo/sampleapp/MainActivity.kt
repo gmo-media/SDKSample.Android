@@ -28,9 +28,10 @@ class MainActivity : ComponentActivity() {
         PlayBox.init(
             key = "",
             options = PlayBox.Options().setUserId("error"),
-            listener = object : PlayBox.PlayBoxInitialisationListener() {
-                override fun onInitialised() {
-                    Log.d("TEST", "onInitialised")
+            listener = object : PlayBox.PlayBoxInitializationListener() {
+                override fun onSuccess() {
+                    super.onSuccess()
+                    Log.d("TEST", "onSuccess")
                 }
 
                 override fun onError(error: Throwable) {

@@ -1,15 +1,13 @@
 package media.gmo.sdksample
 
-import android.content.Context
-
 class PlayBox {
     companion object {
-        fun init(key: String, options: Options?, listener: PlayBoxInitialisationListener) {
+        fun init(key: String, options: Options?, listener: PlayBoxInitializationListener) {
             if (options?.getUserId() == "error") {
                 listener.onError(Exception("Error"))
                 return
             }
-            listener.onInitialised()
+            listener.onSuccess()
         }
     }
 
@@ -26,8 +24,8 @@ class PlayBox {
         }
     }
 
-    open class PlayBoxInitialisationListener {
-        open fun onInitialised() {}
+    open class PlayBoxInitializationListener {
+        open fun onSuccess() {}
         open fun onError(error: Throwable) {}
     }
 }
