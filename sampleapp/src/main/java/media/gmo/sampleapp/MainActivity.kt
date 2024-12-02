@@ -64,8 +64,12 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.padding(innerPadding),
                             viewModel = viewModel,
                             onClick = {
-                                val playBoxCatalogIntent = PlayBox.getCatalogIntent(this@MainActivity)
-                                startActivity(playBoxCatalogIntent);
+                                if (PlayBox.isInitialized) {
+                                    val playBoxCatalogIntent = PlayBox.getCatalogIntent(this@MainActivity)
+                                    startActivity(playBoxCatalogIntent)
+                                } else {
+                                    Log.w("TEST", "onError")
+                                }
                             }
                         )
                     }

@@ -1,20 +1,28 @@
 package media.gmo.sdksample
 
-import android.app.Application
 import android.content.Context
 import android.content.Intent
 
 class PlayBox {
     companion object {
+        var isInitialized: Boolean = false
+            private set
+
         fun init(key: String, options: Options?, listener: PlayBoxInitializationListener) {
             if (options?.getUserId() == "error") {
+                isInitialized = false
                 listener.onError(Exception("Error"))
                 return
             }
+
+            isInitialized = true
             listener.onSuccess()
         }
 
         fun getCatalogIntent(context: Context): Intent {
+            if (!isInitialized) {
+                throw NotInitializedException()
+            }
             return Intent(context, CatalogActivity::class.java)
         }
     }
