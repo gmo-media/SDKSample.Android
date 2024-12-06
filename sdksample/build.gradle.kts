@@ -62,9 +62,9 @@ afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                groupId = "media.gmo.sdksample"
-                artifactId = "play-box"
-                version = "0.0.1"
+                groupId = "com.github.gmo-media"
+                artifactId = "sdk-sample"
+                version = "0.0.2"
 
                 afterEvaluate {
                     from(components["release"])
