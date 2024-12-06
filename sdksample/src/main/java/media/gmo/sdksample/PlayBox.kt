@@ -3,7 +3,7 @@ package media.gmo.sdksample
 import android.content.Context
 import android.content.Intent
 
-class PlayBox {
+public class PlayBox {
     companion object {
         var isInitialized: Boolean = false
             private set
