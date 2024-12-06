@@ -22,6 +22,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "SDKSample"
-include(":app")
 include(":sdksample")
-include(":sampleapp")
